@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Awesome Answers</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+  </head>
+
+  <body>
+    <!-- <a href='/'>Home</a> -->
+
+    <!-- link to is a built in Rails view helper that generates an '<a>' tag.  -->
+    <!-- the first argument is the anchor text and the second argument is the URL or path. -->
+    <!-- It's best to use Rails generated path/url helpers. -->
+    <%= link_to 'Home', root_path %>
+    |
+    <%= link_to "About Us", about_path %>
+    |
+    <%= link_to "Contact Us", contact_path %>
+    |
+    <%= link_to "All Questions", questions_path %>
+    <hr>
+      <% if flash[:notice] %>
+        <div class="flash-notice"><%= flash[:notice] %></div>
+      <% elsif flash[:alert] %>
+        <div class="flash-alert"><%= flash[:alert] %></div>
+      <% end %>
+      <%#= notice || alert %>
+    <hr>
+    <%= yield %>
+  </body>
+</html>

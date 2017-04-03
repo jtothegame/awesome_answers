@@ -1,0 +1,13 @@
+<h1>New Question</h1>
+
+<!-- render helps you insert (or render) a partial. So Rails expects in here that you've defined a partial within the same folder of this file called '_form.html.erb' so the file path should be '/app/views/questions/_form.html.erb' -->
+<!-- Note that partials will have access to instance variables so there is no need to pass them explicitly.  -->
+<!-- If you want to pass a local variable then you will need to do so explicitly as in <%= render 'form', my_var: 'abc' %> -->
+<!-- Also if the partial is in another folder (such as contact) then you will have to put the full path for the partial as in: render '/contact/form' -->
+<%= render 'form'  %>
+
+<!-- form_for is a built-in Rails helper that enables us to generate a form for  -->
+<!-- an ActiveRecord model to submit to the associated controller. If you pass in a non-persisted ActiveRecord object -->
+<!-- (meaning not in the DB yet) then 'form_for' will automatically assume that this form will submit to the create action in the associated controller (in our case questions#create) which has a path helper of 'questions_path', so we must have 'questions_path' defined -->
+
+<!-- If `@question` has values set to it already then the form will be prepopulated with those values. %> -->

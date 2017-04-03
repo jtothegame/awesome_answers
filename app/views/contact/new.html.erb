@@ -1,0 +1,21 @@
+<h1>Contact Us</h1>
+
+<!-- form tag is a Rails built-in helper to generate a form, the first argument of the 'form_tag' must be the URL that the form will submit to. Generated form will have 'POST' as their 'method' and they will automatically generate 'authenticity_token'  -->
+<%= form_tag contact_submit_path do %>
+  <div>
+    <%=label_tag :name %>
+    <%= text_field_tag :name %>
+  </div><br>
+  <div>
+    <%= label_tag :email %>
+    <%= text_field_tag :email %>
+  </div><br>
+  <div>
+    <%= label_tag :message %>
+    <%= text_area_tag :message %>
+  </div><br>
+
+<!-- will generate a submit button for the form with the label 'Contact Us' -->
+<%= submit_tag 'Contact Us' %>
+
+<% end %>
