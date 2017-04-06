@@ -1,15 +1,21 @@
 <h1><%= @question.title %></h1>
 <p><%= @question.body %></p>
+<p>Created On: <%= standard_date_format(@question.created_at) %></p>
 
 <!-- <p><strong>Subject:</strong><%= @question.subject.name if @question.subject %></p> -->
   <!-- below is the safe navigation operator for the same as above -->
 <p><strong>Subject:</strong><%= @question.subject&.name %></p>
 
+<% if can? :edit, @question %>
 <%= link_to 'Edit', edit_question_path(@question) %>
 
 <!-- Rails enables us to make links send non-GET requests by setting the 'method' attribute for 'link_to' -->
 <!-- Rails used JavaScript to accomplish that. -->
+<% end %>
+
+<% if can? :destroy, @question %>
 <%= link_to 'Delete', question_path(@question), method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>
 
 <h2>Answers</h2>
 

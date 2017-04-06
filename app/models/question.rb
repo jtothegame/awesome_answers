@@ -2,10 +2,16 @@
 # All the functionalities we're oging to be using in our Question model come from 'ActiveRecord:Base' which leverages Ruby's meta programming features.
 
 class Question < ApplicationRecord
-has_many :answers
+has_many :answers, dependent: :destroy
+  # dependent: : destroy will delete all associated answers before deleting the quesiton when you call 'question.destroy'.
+  # dependent: :nullify will update the 'question_id' field to 'null' in all the associated answers before deleting the question when you call 'question.destroy'
+  # ** remember to always have a 'dependent' option to your has_many **
+
 # as of Rails 5, belongs to subject will enforce a validation that the association must be present by default.
 # to make it optional, give belongs_to a second argument 'optional: true'
 belongs_to :subject, optional: true
+
+belongs_to :user, optional: true
 
 # has_many :answers adds the following instance methods to this model, Question:
 

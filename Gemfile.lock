@@ -47,8 +47,10 @@ GEM
       tzinfo (~> 1.1)
     arel (7.1.4)
     awesome_print (1.7.0)
+    bcrypt (3.1.11)
     builder (3.2.3)
     byebug (9.0.6)
+    cancancan (1.16.0)
     choice (0.2.0)
     coffee-rails (4.2.1)
       coffee-script (>= 2.2.0)
@@ -174,7 +176,9 @@ PLATFORMS
 
 DEPENDENCIES
   awesome_print
+  bcrypt (~> 3.1.7)
   byebug
+  cancancan (~> 1.10)
   coffee-rails (~> 4.2)
   colorize (~> 0.8.1)
   cowsay (~> 0.3)

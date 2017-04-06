@@ -1,4 +1,5 @@
 class QuestionsController < ApplicationController
+  before_action :authenticate_user!, except: [:show, :index]
 
   # the `before_action` method registers another method in this case it's the
   # `find_quesiton` method which will be executed just before the actions you
@@ -16,6 +17,7 @@ class QuestionsController < ApplicationController
 
   def create
     @question = Question.new question_params
+    @question.user = current_user
     if @question.save
       # redirect_to question_path({id: @question.id})
       # redirect_to question_path(@question.id)
@@ -45,10 +47,14 @@ class QuestionsController < ApplicationController
   end
 
   def edit
+    # can? is a helper method that came from the CanCanCan which helps us enforce permission rules in the controllers and views.
+    redirect_to root_path, alert: 'access denied' unless can? :edit, @question
   end
 
   def update
-    if @question.update(question_params)
+    if !(can? :edit, @question)
+      redirect_to root_path, alert: 'access denied'
+    elsif @question.update(question_params)
       redirect_to question_path(@question), notice: 'Question updated'
     else
       render :edit
@@ -56,8 +62,12 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    @question.destroy
-    redirect_to questions_path, notice: 'Question Deleted'
+    if can? :destroy, @question
+      @question.destroy
+      redirect_to questions_path, notice: 'Question Deleted'
+    else
+      redirect_to root_path, alert: 'Access Denied'
+    end
   end
 
   private
