@@ -4,6 +4,7 @@
     <title>Awesome Answers</title>
     <%= csrf_meta_tags %>
 
+    <!-- the two lines below reference the manifest file or what the manifest files generate for us. In development environment, we will see all the files included individually. In production, those will be one file each. -->
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
   </head>
