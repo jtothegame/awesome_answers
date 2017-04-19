@@ -9,7 +9,7 @@ class AnswersController < ApplicationController
 
     if @answer.save
       #sending an email to the question's owner.
-      AnswersMailer.notify_question_owner(@answer).deliver_now
+      AnswersMailer.notify_question_owner(@answer).deliver_later
       redirect_to question_path(@question), notice: 'Answer Created!'
     else
       render '/questions/show'
