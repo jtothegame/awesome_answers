@@ -1,3 +1,5 @@
+<div class="container">
+
 <h1>Sign Up</h1>
 
 <%= @user.errors.full_messages.join(', ') %>
@@ -22,5 +24,9 @@
     <%= f.label :password_confirmation %>
     <%= f.password_field :password_confirmation, class: 'form-control' %>
   </div><br>
+  <div class='form-group'>
   <%= f.submit 'Sign Up', class: 'btn btn-primary' %>
-<% end %>
+  </div>
+  <% end %>
+
+</div>

@@ -2,7 +2,7 @@ class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: [:show, :index]
 
   # the `before_action` method registers another method in this case it's the
-  # `find_quesiton` method which will be executed just before the actions you
+  # `find_question` method which will be executed just before the actions you
   # specify in the `only` array. Keep in mind that the method that gets executed
   # as a `before_action` happens within the same request/response cycle so if
   # you define an instance variable you can use it within the action / views
