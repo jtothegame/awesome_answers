@@ -82,7 +82,7 @@ class QuestionsController < ApplicationController
     # the line below is what's called "Strong Parameters" feautre that was added
     # to Rails starting with version 4 to help developer be more explicit about
     # the parameters that they want to allow the user to submit
-    params.require(:question).permit([:title, :body])
+    params.require(:question).permit([:title, :body, { tag_ids: [] } ])
   end
 
 end

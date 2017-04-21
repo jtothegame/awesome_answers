@@ -2,41 +2,84 @@
 <p><%= @question.body %></p>
 <p>Created On: <%= standard_date_format(@question.created_at) %></p>
 
-<!-- <p><strong>Subject:</strong><%= @question.subject.name if @question.subject %></p> -->
-  <!-- below is the safe navigation operator for the same as above -->
-<p><strong>Subject:</strong><%= @question.subject&.name %></p>
+<!-- <p><strong>Subject:</strong> <%= @question.subject.name if @question.subject %></p> -->
+<p><strong>Subject:</strong> <%= @question.subject&.name %></p>
+
+<p>Tags: <%= @question.tags.map(&:name).join(', ') %></p>
+
+<% like = @question.likes.find_by(user: current_user) %>
+
+<% if user_signed_in? && can?(:like, @question) %>
+  <% if like.present? %>
+    <%= link_to fa_icon("heart"), question_like_path(@question, like), method: :delete %>
+  <% else %>
+    <%= link_to fa_icon("heart-o"), question_likes_path(@question), method: :post %>
+  <% end %>
+<% end %>
+
+<span><%= pluralize(@question.likes.count, 'like') %></span>
+
+<% user_vote = @question.votes.find_by_user_id current_user %>
+
+<div class = "vote-section">
+<% if user_vote.nil? %>
+  <%= link_to fa_icon('thumbs-o-up'), question_votes_path(@question, { is_up: true }),
+                                     method: :post %>
+
+  <%= link_to fa_icon('thumbs-o-down'), question_votes_path(@question, { is_up: false }),
+                           method: :post %>
+<% elsif user_vote.is_up? %>
+  <%= link_to fa_icon('thumbs-up'), question_vote_path(@question, user_vote),
+                             method: :delete %>
+
+  <%= link_to  fa_icon('thumbs-o-down'), question_vote_path(@question,
+                                              user_vote,
+                                              { is_up: false }),
+                           method: :patch %>
+<% else %>
+  <%= link_to fa_icon('thumbs-o-up'), question_vote_path(@question,
+                                            user_vote,
+                                            { is_up: true }),
+                           method: :patch %>
+  <%= link_to fa_icon('thumbs-down'), question_vote_path(@question, user_vote),
+                             method: :delete %>
+<% end %>
+(
+  <%= @question.votes_count %>
+)
+</div>
 
 <% if can? :edit, @question %>
-<%= link_to 'Edit', edit_question_path(@question) %>
+  <%= link_to 'Edit', edit_question_path(@question) %>
 
-<!-- Rails enables us to make links send non-GET requests by setting the 'method' attribute for 'link_to' -->
-<!-- Rails used JavaScript to accomplish that. -->
+  <%# Rails enables us to make links end non-GET requests by setting the `method`
+      attribute for `link_to`. Rails uses Javascript to accomplish that. %>
 <% end %>
 
 <% if can? :destroy, @question %>
-<%= link_to 'Delete', question_path(@question), method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%= link_to 'Delete', question_path(@question),
+                        method: :delete,
+                        data: { confirm: 'Are you sure?' } %>
 <% end %>
 
 <h2>Answers</h2>
 
 <%= @answer.errors.full_messages.join(', ') %>
-<!-- action=/questions/:question_id/answers -->
+<%# action=/questions/:question_id/answers %>
 <%= form_for [@question, @answer] do |f| %>
   <%= f.text_area :body %>
   <%= f.submit %>
 <% end %>
 
-<hr>
+<hr />
 
 <% @question.answers.each do |answer| %>
-
   <p><%= answer.body %></p>
 
   <%= link_to(
     '💣 Delete', question_answer_path(@question, answer), method: :delete,
     data: {confirm: 'Are you sure?'}
-    ) %>
+  ) %>
 
-  <hr>
-
+  <hr />
 <% end %>

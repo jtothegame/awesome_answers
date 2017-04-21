@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require chosen-jquery
 //= require welcome
 //= require_tree .
 
@@ -21,5 +22,5 @@
 
 // Not that locally when we're in development mode, the files will be included individually but when we go to production they will all get compiled into a large single file called application-DIGEST.js
 
-// If you add your own 'require' statements then you can choose to include files in non alphabetical order. 
+// If you add your own 'require' statements then you can choose to include files in non alphabetical order.
 // Note that the URL for the compiled (or individual) files will be /assets/FILE_NAME
