@@ -5,7 +5,7 @@
 <!-- <p><strong>Subject:</strong> <%= @question.subject.name if @question.subject %></p> -->
 <p><strong>Subject:</strong> <%= @question.subject&.name %></p>
 
-<p>Tags: <%= @question.tags.map(&:name).join(', ') %></p>
+<p>Tags: <%= @question.tags.pluck(:name).join(', ') %></p>
 
 <% like = @question.likes.find_by(user: current_user) %>
 
