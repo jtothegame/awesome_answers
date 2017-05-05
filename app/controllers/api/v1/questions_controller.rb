@@ -1,7 +1,8 @@
-class Api::V1::QuestionsController < ApplicationController
+class Api::V1::QuestionsController < Api::BaseController
 
+  #http://localhost:3000/api/v1/questions
   def index
-    @questions = Question.last(20)
+    @questions = Question.order(created_at: :desc)
   end
 
   def show
@@ -11,16 +12,20 @@ class Api::V1::QuestionsController < ApplicationController
     # what file will be rendered?
     # /views/api/v1/questions/show.json.jbuilder
 
-    render json: @question
+    render :show
   end
 
-  private
+  def create
+    question_params = params.require(:question).permit(:title, :body)
 
-  def authenticate_user
-    @user = User.find_by_api_token params[:api_token]
-    # head will send an empty HTTP response with a code that is inferred by the
-    # symbol you pass as an argument to the 'head' method. 
-    head :unauthorized if @user.nil?
+    question = Question.new question_params
+    question.user = @user
+
+    if question.save
+      head :ok
+    else
+      render json: {error: question.errors.full_messages.join(', ') }
+    end
   end
 
 end

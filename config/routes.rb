@@ -28,7 +28,7 @@ Rails.application.routes.draw do
       # /api/v1/questions.json # => INDEX
       # /api/v1/questions/1.json # => SHOW
 
-      resources :questions, only: [:index, :show]
+      resources :questions, only: [:index, :show, :create]
     end
   end
 
