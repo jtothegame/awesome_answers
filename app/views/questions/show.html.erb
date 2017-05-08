@@ -7,6 +7,8 @@
 
 <p>Tags: <%= @question.tags.pluck(:name).join(', ') %></p>
 
+<%= image_tag @question.image.url(:large) if @question.image.present? %>
+
 <% like = @question.likes.find_by(user: current_user) %>
 
 <% if user_signed_in? && can?(:like, @question) %>
@@ -67,8 +69,8 @@
 <%= @answer.errors.full_messages.join(', ') %>
 <%# action=/questions/:question_id/answers %>
 <%= form_for [@question, @answer] do |f| %>
-  <%= f.text_area :body %>
-  <%= f.submit %>
+  <%= f.text_area :body %><br>
+  <%= f.submit class: 'btn btn-success'%>
 <% end %>
 
 <hr />

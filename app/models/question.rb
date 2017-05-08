@@ -22,6 +22,11 @@ belongs_to :subject, optional: true
 
 belongs_to :user, optional: true
 
+extend FriendlyId
+friendly_id :title, use: [:slugged, :history, :finders]
+
+mount_uploader :image, ImageUploader
+
 # has_many :answers adds the following instance methods to this model, Question:
 
 # answers
@@ -75,6 +80,12 @@ belongs_to :user, optional: true
     # To Do: Attempt to do it in a single query.
     votes.where(is_up: true).count - votes.where(is_up: false).count
   end
+
+  # Rails uses 'to_param' method in ActiveRecord to know what to use for the URL
+  # by default 'to_param' method will return the 'id'.
+  # def to_param
+  #   "#{id}-#{title}".parameterize
+  # end
 
   private
 

@@ -2,5 +2,6 @@
   <%= f.input :title %>
   <%= f.input :body %>
   <%= f.association :tags, input_html: { class: 'chosen-select', style: 'width: 500px'} %>
+  <%= f.input :image %>
   <%= f.submit class: 'btn btn-success'%>
 <% end %>
