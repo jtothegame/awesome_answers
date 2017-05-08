@@ -1,3 +1,9 @@
 .field_with_errors input, .field_with_errors textarea {
   border-color: red;
 }
+
+.question_tags {
+  .chosen-container {
+    display: block;
+  }
+}
