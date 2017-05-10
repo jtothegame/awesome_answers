@@ -68,11 +68,11 @@ mount_uploader :image, ImageUploader
     order(created_at: :desc).limit(number)
   end
 
-  def liked_by(user)
+  def liked_by?(user)
     likes.exists?(user: user)
   end
 
-  def liked_for(user)
+  def like_for(user)
     likes.find_by(user: user)
   end
 

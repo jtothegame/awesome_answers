@@ -1,0 +1,16 @@
+<div id='like'>
+  <% if user_signed_in? && can?(:like, @question) %>
+    <% if @question.liked_by?(current_user) %>
+      <%= link_to(
+        fa_icon("heart"),
+        question_like_path(@question, @question.like_for(current_user)),
+        method: :delete, remote: true
+      ) %>
+    <% else %>
+      <%= link_to fa_icon("heart-o"), question_likes_path(@question),
+                  method: :post, remote: true %>
+    <% end %>
+  <% end %>
+
+  <span><%= pluralize(@question.likes.count, 'like') %></span>
+</div>

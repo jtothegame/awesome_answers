@@ -21,8 +21,11 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-    answer = Answer.find(params[:id])
-    answer.destroy
-    redirect_to question_path(answer.question), notice: 'Answer deleted!'
+    @answer = Answer.find(params[:id])
+    @answer.destroy
+    respond_to do |format|
+    format.html { redirect_to question_path(@answer.question), notice: 'Answer deleted!' }
+    format.js { render } # this will render 'destroy.js.erb'
+    end
   end
 end

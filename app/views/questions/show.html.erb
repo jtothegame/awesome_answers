@@ -11,15 +11,7 @@
 
 <% like = @question.likes.find_by(user: current_user) %>
 
-<% if user_signed_in? && can?(:like, @question) %>
-  <% if like.present? %>
-    <%= link_to fa_icon("heart"), question_like_path(@question, like), method: :delete %>
-  <% else %>
-    <%= link_to fa_icon("heart-o"), question_likes_path(@question), method: :post %>
-  <% end %>
-<% end %>
-
-<span><%= pluralize(@question.likes.count, 'like') %></span>
+<%= render 'likes/like' %>
 
 <% user_vote = @question.votes.find_by_user_id current_user %>
 
