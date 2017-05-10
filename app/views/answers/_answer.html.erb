@@ -1,0 +1,8 @@
+<p><%= answer.body %></p>
+
+<%= link_to(
+  '💣 Delete', question_answer_path(@question, answer), method: :delete,
+  data: {confirm: 'Are you sure?'}
+) %>
+
+<hr />

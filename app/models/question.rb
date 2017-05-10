@@ -2,7 +2,7 @@
 # All the functionalities we're oging to be using in our Question model come from 'ActiveRecord:Base' which leverages Ruby's meta programming features.
 
 class Question < ApplicationRecord
-has_many :answers, dependent: :destroy
+has_many :answers, lambda { order(created_at: :desc) }, dependent: :destroy
 
 has_many :likes, dependent: :destroy
 has_many :likers, through: :likes, source: :user

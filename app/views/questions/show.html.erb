@@ -66,22 +66,12 @@
 
 <h2>Answers</h2>
 
-<%= @answer.errors.full_messages.join(', ') %>
-<%# action=/questions/:question_id/answers %>
-<%= form_for [@question, @answer] do |f| %>
-  <%= f.text_area :body %><br>
-  <%= f.submit class: 'btn btn-success'%>
-<% end %>
+<%= render '/answers/form' %>
 
 <hr />
 
-<% @question.answers.each do |answer| %>
-  <p><%= answer.body %></p>
-
-  <%= link_to(
-    '💣 Delete', question_answer_path(@question, answer), method: :delete,
-    data: {confirm: 'Are you sure?'}
-  ) %>
-
-  <hr />
-<% end %>
+<div id="answers">
+  <% @question.answers.each do |ans| %>
+    <%= render '/answers/answer', answer: ans %>
+  <% end %>
+</div>

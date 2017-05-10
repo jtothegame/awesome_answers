@@ -7,12 +7,16 @@ class AnswersController < ApplicationController
 
     # @answer = @question.answers.build(answer_params) is the same as doing @answer.question = @question
 
-    if @answer.save
-      #sending an email to the question's owner.
-      AnswersMailer.notify_question_owner(@answer).deliver_later
-      redirect_to question_path(@question), notice: 'Answer Created!'
-    else
-      render '/questions/show'
+  respond_to do |format|
+      if @answer.save
+        #sending an email to the question's owner.
+        AnswersMailer.notify_question_owner(@answer).deliver_later
+        format.html { redirect_to question_path(@question), notice: 'Answer Created!' }
+        format.js   { render :success }
+      else
+        format.html { render '/questions/show' }
+        format.js   { render :failure}
+      end
     end
   end
 

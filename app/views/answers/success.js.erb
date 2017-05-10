@@ -1,0 +1,10 @@
+$('#answers').prepend('<%= j render 'answer', answer: @answer %>');
+$('#answer_body').val('');
+
+<%# we will need to re-render the form in case there has been previous errors
+    displayed on it. However, the form expects us to have `@answer` defined to
+    a new Answer but it's currently defined an answer that is already persisted
+    in the database (saved already) so we will need to re-initialize the answer
+    to a new `Answer` %>
+<% @answer = Answer.new %>
+$('#new_answer').replaceWith('<%= j render 'form' %>');
